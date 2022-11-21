@@ -1,12 +1,10 @@
-import Head from 'next/head'
+import Head from "next/head";
 import Sidebar from "../components/Sidebar";
 import Feed from "../components/Feed";
 import Widgets from "../components/Widgets";
 
-
-
-export default function Home({
-  // newsResults, randomUsersResults
+export default function Home({ 
+  // newsResults, randomUsersResults 
 }) {
   return (
     <div>
@@ -16,25 +14,28 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen mx-auto">
-      {/* Sidebar */}
-      <Sidebar />
+        {/* Sidebar */}
+        <Sidebar />
 
-      {/* Feed */}
-      <Feed />
+        {/* Feed */}
+        <Feed />
 
-      {/* Widgets */}
-      {/* <Widgets newsResults={newsResults.articles}
-               randomUsersResults={randomUsersResults.results} */}
+        {/* Widgets */}
 
-/>
+      
+        {/* <Widgets
 
-      {/* Modal */}
 
+          newsResults={newsResults.articles}
+          randomUsersResults={randomUsersResults.results}
+
+          
+        /> */}
+
+        {/* Modal */}
       </main>
-     
-
     </div>
-  )
+  );
 }
 
 //https://saurav.tech/NewsAPI/top-headlines/category/business/us.json
@@ -43,19 +44,19 @@ export async function getServerSideProps() {
     "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json"
   ).then((res) => res.json());
 
-   // Who to follow section
+  // Who to follow section
 
-   let randomUsersResults = [];
+  let randomUsersResults = [];
 
-   try {
-     const res = await fetch(
-       "https://randomuser.me/api/?results=30&inc=name,login,picture"
-     );
- 
-     randomUsersResults = await res.json();
-   } catch (e) {
-     randomUsersResults = [];
-   }
+  try {
+    const res = await fetch(
+      "https://randomuser.me/api/?results=30&inc=name,login,picture"
+    );
+
+    randomUsersResults = await res.json();
+  } catch (e) {
+    randomUsersResults = [];
+  }
   return {
     props: {
       newsResults,
