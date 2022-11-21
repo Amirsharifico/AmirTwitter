@@ -4,7 +4,7 @@ import Feed from "../components/Feed";
 import Widgets from "../components/Widgets";
 
 export default function Home({ 
-  // newsResults, randomUsersResults 
+  newsResults, randomUsersResults 
 }) {
   return (
     <div>
@@ -23,14 +23,14 @@ export default function Home({
         {/* Widgets */}
 
       
-        {/* <Widgets
+        <Widgets
 
 
           newsResults={newsResults.articles}
           randomUsersResults={randomUsersResults.results}
 
           
-        /> */}
+        />
 
         {/* Modal */}
       </main>
