@@ -28,8 +28,12 @@ export default function signin({providers}) {
           </button>
           </div>              
               )}
+         
+              
             </div>
     </div>
+
+  
   );
 }
 

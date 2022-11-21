@@ -41,7 +41,8 @@ export default function Home({
 //https://saurav.tech/NewsAPI/top-headlines/category/business/us.json
 export async function getServerSideProps() {
   const newsResults = await fetch(
-    "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json"
+    // "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json"
+    "https://saurav.tech/NewsAPI/everything/cnn.json"
   ).then((res) => res.json());
 
   // Who to follow section
