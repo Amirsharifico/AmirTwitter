@@ -24,6 +24,7 @@
     "react-dom": "18.2.0",
     "react-dots": "^1.0.0",
     "react-moment": "^1.1.2",
+    "recoil": "^0.7.6",
     "typescript": "4.9.3"
   },
   "devDependencies": {
