@@ -7,18 +7,18 @@ import {
   TrashIcon,
 } from "@heroicons/react/outline";
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
-import { setDoc, 
-        doc, 
-        onSnapshot, 
-        collection ,
-        deleteDoc
-      } from "firebase/firestore";
-import { db } from "../firebase";
-import {signIn, useSession} from "next-auth/react"
+import {
+  setDoc,
+  doc,
+  onSnapshot,
+  collection,
+  deleteDoc,
+} from "firebase/firestore";
+import { db, storage } from "../firebase";
+import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { deleteObject, ref } from "firebase/storage";
 import Moment from "react-moment";
-
-
 
 export default function Post({ post }) {
   const { data: session } = useSession();
@@ -38,21 +38,38 @@ export default function Post({ post }) {
     );
   }, [likes]);
 
-
-// Like post
-async function likePost() {
-  if (session) {
-    if (hasLiked) {
-      await deleteDoc(doc(db, "posts", post.id, "likes", session?.user.uid));
-    } else {
-      await setDoc(doc(db, "posts", post.id, "likes", session?.user.uid), {
-        username: session.user.username,
-      });
-    }
-  } else {
-    signIn();
+  {
+    /* ***************************************************************************************************************  */
   }
-}
+  async function likePost() {
+    if (session) {
+      if (hasLiked) {
+        await deleteDoc(doc(db, "posts", post.id, "likes", session?.user.uid));
+      } else {
+        await setDoc(doc(db, "posts", post.id, "likes", session?.user.uid), {
+          username: session.user.username,
+        });
+      }
+    } else {
+      signIn();
+    }
+  }
+
+  {
+    /* ***************************************************************************************************************  */
+  }
+  async function deletePost() {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      deleteDoc(doc(db, "posts", post.id));
+      if (post.data.image) {
+        deleteObject(ref(storage, `posts/${post.id}/image`));
+      }
+    }
+  }
+
+  {
+    /* ***************************************************************************************************************  */
+  }
 
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
@@ -92,7 +109,16 @@ async function likePost() {
         {/* Icons */}
         <div className="flex items-center select-none">
           <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-          <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
+          {/* ***************************************************************************************************************  */}
+
+          {session?.user.uid === post?.data().id && (
+            <TrashIcon
+              onClick={deletePost}
+              className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
+            />
+          )}
+
+          {/* ***************************************************************************************************************  */}
           <div className="flex items-center">
             {hasLiked ? (
               <HeartIconFilled
@@ -115,8 +141,8 @@ async function likePost() {
             )}
           </div>
 
-      
-       
+          {/* ***************************************************************************************************************  */}
+
           <ShareIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
           <ChartBarIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
         </div>

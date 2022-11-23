@@ -3,9 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Feed from "../components/Feed";
 import Widgets from "../components/Widgets";
 
-export default function Home({ 
-  newsResults, randomUsersResults 
-}) {
+export default function Home({ newsResults, randomUsersResults }: any) {
   return (
     <div>
       <Head>
@@ -22,14 +20,9 @@ export default function Home({
 
         {/* Widgets */}
 
-      
         <Widgets
-
-
           newsResults={newsResults.articles}
           randomUsersResults={randomUsersResults.results}
-
-          
         />
 
         {/* Modal */}
