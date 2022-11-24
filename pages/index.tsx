@@ -2,10 +2,9 @@ import Head from "next/head";
 import Sidebar from "../components/Sidebar";
 import Feed from "../components/Feed";
 import Widgets from "../components/Widgets";
+import CommentModal from "../components/CommentModal";
 
-export default function Home({ 
-  // newsResults, randomUsersResults 
-}) {
+export default function Home({ newsResults, randomUsersResults }: any) {
   return (
     <div>
       <Head>
@@ -22,17 +21,13 @@ export default function Home({
 
         {/* Widgets */}
 
-      
-        {/* <Widgets
-
-
+        <Widgets
           newsResults={newsResults.articles}
           randomUsersResults={randomUsersResults.results}
-
-          
-        /> */}
+        />
 
         {/* Modal */}
+        <CommentModal/>
       </main>
     </div>
   );
@@ -41,7 +36,8 @@ export default function Home({
 //https://saurav.tech/NewsAPI/top-headlines/category/business/us.json
 export async function getServerSideProps() {
   const newsResults = await fetch(
-    "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json"
+    // "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json"
+    "https://saurav.tech/NewsAPI/everything/cnn.json"
   ).then((res) => res.json());
 
   // Who to follow section
